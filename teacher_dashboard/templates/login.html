@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+        font-family: 'Segoe UI', sans-serif;
+        background: url("{% static 'images/logo.png' %}") no-repeat center center fixed;
+        background-size: cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .form-box {
+        width: 100%;
+        max-width: 400px;
+        background-color: rgba(255, 255, 255, 0.94);
+        padding: 30px 25px;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .form-box h2 {
+        font-weight: 700;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .form-box p {
+        text-align: center;
+        color: #555;
+    }
+
+    .form-label {
+        font-weight: 600;
+    }
+
+    .btn-primary {
+        background-color: #006666;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #004c4c;
+    }
+
+    .role-selector {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .role-selector button {
+        border-radius: 50px;
+        font-size: 0.9rem;
+        padding: 6px 16px;
+    }
+
+    @media (max-width: 768px) {
+        .form-box {
+            margin: 20px;
+        }
+    }
+</style>
+
+<div class="form-box">
+    <h2>EduPredict Login</h2>
+    <p>Sign in to your teacher/admin account</p>
+    <div class="role-selector">
+        <button class="btn btn-outline-primary active" disabled>👩‍🏫 Teacher / Admin</button>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            {{ form.username }}
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            {{ form.password }}
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Sign In</button>
+    </form>
+</div>
+{% endblock %}

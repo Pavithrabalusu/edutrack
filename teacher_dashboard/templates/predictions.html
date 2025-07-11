@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Student Performance Predictions</h1>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Age</th>
+                <th>Study Time</th>
+                <th>Failures</th>
+                <th>G1</th>
+                <th>G2</th>
+                <th>G3</th>
+                <th>Prediction</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ student.name }}</td>
+                <td>{{ student.age }}</td>
+                <td>{{ student.studytime }}</td>
+                <td>{{ student.failures }}</td>
+                <td>{{ student.g1 }}</td>
+                <td>{{ student.g2 }}</td>
+                <td>{{ student.g3|default:"-" }}</td>
+                <td>
+                    <span class="badge 
+                        {% if student.prediction == 'Excellent' %}bg-success
+                        {% elif student.prediction == 'Good' %}bg-primary
+                        {% elif student.prediction == 'Average' %}bg-warning
+                        {% else %}bg-danger
+                        {% endif %}">
+                        {{ student.prediction }}
+                    </span>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-4">
+    <h1 class="mb-4">👩‍🏫 Teacher Dashboard</h1>
+
+    <!-- Navigation Tabs -->
+    <ul class="nav nav-tabs mb-4">
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'teacher_dashboard:upload_data' %}">📁 Upload Data</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'teacher_dashboard:predictions' %}">📊 Predictions</a>
+        </li>
+    </ul>
+
+    <!-- Performance Overview -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h3 class="mb-3">📈 Performance Overview</h3>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="card shadow-sm border-success">
+                        <div class="card-header bg-success text-white fw-bold">
+                            High Performers
+                        </div>
+                        <div class="card-body text-center fs-4">
+                            {{ high_performers.count }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card shadow-sm border-warning">
+                        <div class="card-header bg-warning text-dark fw-bold">
+                            Medium Performers
+                        </div>
+                        <div class="card-body text-center fs-4">
+                            {{ medium_performers.count }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card shadow-sm border-danger">
+                        <div class="card-header bg-danger text-white fw-bold">
+                            Low Performers
+                        </div>
+                        <div class="card-body text-center fs-4">
+                            {{ low_performers.count }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <h3 class="mb-3">🎯 Performer Details</h3>
+
+            <div class="accordion" id="performerAccordion">
+                <!-- High Performers -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="highHeading">
+                        <button class="accordion-button collapsed bg-success text-white" type="button" data-bs-toggle="collapse" data-bs-target="#highCollapse" aria-expanded="false">
+                                High Performers ({{ high_performers.count }})
+                        </button>
+                    </h2>
+                    <div id="highCollapse" class="accordion-collapse collapse" data-bs-parent="#performerAccordion">
+                        <div class="accordion-body">
+                            {% for student in high_performers %}
+                                <p>{{ student.name }} — {{ student.prediction }}</p>
+                            {% empty %}
+                                <p class="text-muted">No high performers yet.</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Medium Performers -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="mediumHeading">
+                        <button class="accordion-button collapsed bg-warning text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#mediumCollapse" aria-expanded="false">
+                                Medium Performers ({{ medium_performers.count }})
+                        </button>
+                    </h2>
+                    <div id="mediumCollapse" class="accordion-collapse collapse" data-bs-parent="#performerAccordion">
+                        <div class="accordion-body">
+                            {% for student in medium_performers %}
+                                <p>{{ student.name }} — {{ student.prediction }}</p>
+                            {% empty %}
+                                <p class="text-muted">No medium performers yet.</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Low Performers -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="lowHeading">
+                        <button class="accordion-button collapsed bg-danger text-white" type="button" data-bs-toggle="collapse" data-bs-target="#lowCollapse" aria-expanded="false">
+                                Low Performers ({{ low_performers.count }})
+                        </button>
+                    </h2>
+                    <div id="lowCollapse" class="accordion-collapse collapse" data-bs-parent="#performerAccordion">
+                        <div class="accordion-body">
+                            {% for student in low_performers %}
+                               <p>{{ student.name }} — {{ student.prediction }}</p>
+                            {% empty %}
+                               <p class="text-muted">No low performers yet.</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Recent Students + Sidebar -->
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3 class="mb-0">🧑‍🎓 Recent Students</h3>
+                <form method="post" action="{% url 'teacher_dashboard:delete_all_students' %}" onsubmit="return confirm('Are you sure you want to delete ALL students?');">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm">🗑️ Delete All</button>
+                </form>
+            </div>
+            {% for student in students %}
+            <div class="card mb-2 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title d-flex justify-content-between align-items-center">
+                    {{ student.name }}
+                    <form method="post" action="{% url 'teacher_dashboard:delete_student' student.id %}" style="margin: 0;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure you want to delete this student?');">
+                            Delete
+                        </button>
+                    </form>
+                    <p class="card-text">
+                        Marks: <strong>{{ student.marks }}%</strong> |
+                        Attendance: <strong>{{ student.attendance }}%</strong>
+                    </p>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-muted">No students available yet.</p>
+            {% endfor %}
+        </div>
+
+        <div class="col-md-4">
+            <h3 class="mb-3">⚡ Quick Actions</h3>
+            <div class="list-group shadow-sm mb-4">
+                <a href="{% url 'teacher_dashboard:upload_data' %}" class="list-group-item list-group-item-action">📁 Upload Student Data</a>
+                <a href="{% url 'teacher_dashboard:export_reports' %}" class="list-group-item list-group-item-action">📤 Export Reports</a>
+                <a href="{% url 'teacher_dashboard:add_student' %}" class="list-group-item list-group-item-action">➕ Add Student</a>
+            </div>
+
+            <h3 class="mb-3">📊 Class Statistics</h3>
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <p class="mb-2">Average Marks<br><strong>{{ avg_marks }}%</strong></p>
+                    <p class="mb-2">Average Attendance<br><strong>{{ avg_attendance }}%</strong></p>
+                    <p class="mb-0">Total Students<br><strong>{{ total_students }}</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
