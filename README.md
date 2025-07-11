@@ -16,7 +16,7 @@
 
 ## 🏗️ Tech Stack
 
-- **Frontend**: HTML, CSS (via Django templates)
+- **Frontend**: HTML, CSS, JavaScript
 - **Backend**: Django
 - **ML Tools**: scikit-learn, pandas, joblib
 - **Database**: SQLite (default Django DB)
@@ -58,8 +58,6 @@ edupredict/
 
 
 ---
-
-## 🚀 Getting Started
 
 ## 🚀 Getting Started
 
