@@ -114,4 +114,4 @@ These predictions are based on student academic and behavioral input features.
 
 ## 📤 Export Feature
 
-Teachers can export student performance reports in **CSV** or **PDF** format (depending on implementation) for offline analysis and documentation.
+Teachers can export student performance reports in **CSV** format for offline analysis and documentation.
