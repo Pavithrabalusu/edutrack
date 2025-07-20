@@ -31,11 +31,11 @@ edupredict/ # Project settings
 
 teacher_dashboard/ # Main app (models, views, forms, ML, templates)
 
-    ###migrations/
+    ### migrations/
     
-    ###ml_model/
+    ### ml_model/
     
-    ###templates/
+    ### templates/
   
 media/ # Uploaded files
 
