@@ -28,15 +28,15 @@
 edupredict/
 edupredict/ # Project settings
 teacher_dashboard/ # Main app (models, views, forms, ML, templates)
- ├── migrations/
- ├── ml_model/
- └── templates/
- media/ # Uploaded files
- static/ # CSS, JS, images
- venv/ # Virtual environment
- manage.py # Django management script
- db.sqlite3 # SQLite DB
- requirements.txt # Python dependencies
+  migrations/
+  ml_model/
+  templates/
+media/ # Uploaded files
+static/ # CSS, JS, images
+venv/ # Virtual environment
+manage.py # Django management script
+db.sqlite3 # SQLite DB
+requirements.txt # Python dependencies
 .gitignore # Git ignore rules
 
 
