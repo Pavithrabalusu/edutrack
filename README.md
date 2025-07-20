@@ -23,7 +23,7 @@
 
 ---
 
-### 📁 Project Structure
+## 📁 Project Structure
 
 edupredict/
 ├── edupredict/ # Project settings
