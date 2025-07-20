@@ -26,35 +26,19 @@
 ## 📁 Project Structure
 
 edupredict/
-│
-├── edupredict/ # Django project settings
-│ ├── init.py
-│ ├── asgi.py
-│ ├── settings.py
-│ ├── urls.py
-│ └── wsgi.py
-│
-├── teacher_dashboard/ # Main Django app
-│ ├── init.py
-│ ├── admin.py
-│ ├── apps.py
-│ ├── forms.py
-│ ├── models.py
-│ ├── signals.py
-│ ├── tests.py
-│ ├── urls.py
-│ ├── views.py
-│ ├── migrations/ # Database migrations
-│ ├── ml_model/ # ML logic and model files
-│ └── templates/ # HTML templates
-│
-├── media/ # Uploaded files (excluded from Git)
-├── static/ # Static files (CSS, JS)
-├── venv/ # Python virtual environment (excluded from Git)
-├── .gitignore # Git ignore file
-├── db.sqlite3 # SQLite database (excluded from Git)
-├── manage.py # Django management script
-└── requirements.txt # Python dependencies
+├── edupredict/            # Project settings
+├── teacher_dashboard/     # Main app (models, views, forms, ML, templates)
+│   ├── migrations/
+│   ├── ml_model/
+│   └── templates/
+├── media/                 # Uploaded files
+├── static/                # CSS, JS, images
+├── venv/                  # Virtual environment
+├── manage.py              # Django management script
+├── db.sqlite3             # SQLite DB
+├── requirements.txt       # Python dependencies
+└── .gitignore             # Git ignore rules
+
 
 
 ---
