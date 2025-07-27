@@ -16,9 +16,11 @@
     <div class="container-fluid">
         <div class="row">
             <!-- Sidebar (hidden on login page) -->
-            {% if request.resolver_match.url_name != 'login' %}
+            {% if request.resolver_match.url_name != 'login' and request.resolver_match.url_name != 'register' %}
                 {% include 'includes/sidebar.html' %}
             {% endif %}
+
+
             
             <!-- Main content -->
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">

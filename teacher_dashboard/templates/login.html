@@ -79,15 +79,32 @@
 
     <form method="post">
         {% csrf_token %}
+        
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger" role="alert">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
         <div class="mb-3">
             <label for="username" class="form-label">Username</label>
             {{ form.username }}
+            {% if form.username.errors %}
+                <div class="text-danger">{{ form.username.errors.0 }}</div>
+            {% endif %}
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Password</label>
             {{ form.password }}
+            {% if form.password.errors %}
+                <div class="text-danger">{{ form.password.errors.0 }}</div>
+            {% endif %}
         </div>
         <button type="submit" class="btn btn-primary w-100">Sign In</button>
+
+        <p class="mt-3 text-center">
+           New user? <a href="{% url 'teacher_dashboard:register' %}">Create an account</a>
+        </p>
     </form>
 </div>
 {% endblock %}
